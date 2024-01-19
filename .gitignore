@@ -1,0 +1,12 @@
+venv-311/
+profile_dir/
+input/
+jnotes/
+output/
+temp/
+static/*
+!static/.gitkeep 
+.env
+client.py
+fop.py
+tzov.py
