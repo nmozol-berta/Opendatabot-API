@@ -30,7 +30,6 @@ password= os.environ["PASSWORD"]
 port= os.environ["PORT"]
 
 
-
 # Global variables
 last_scrape_time = None
 is_scrapping_in_progress=False
@@ -108,7 +107,7 @@ def keep_browser_session_alive():
     global driver,is_scrapping_in_progress
     while True:
 
-        time.sleep(900)
+        time.sleep(1800)
         is_scrapping_in_progress=True  
         driver.close()
         start_browser()
@@ -139,47 +138,48 @@ def scrape_data():
         if time_since_last_scrape < 8:
             time.sleep(8 - time_since_last_scrape)
 
+
+    url = f'https://opendatabot.ua/check-fop/{id}'  
+    driver.get(url)
+      
     try:
 
         
         
         
-        try:
-            input_bar = WebDriverWait(driver, 1).until(EC.presence_of_element_located((By.XPATH, '//input[@class="form-control ps-3"]')))
-        except:
-            try:
-                driver.execute_script("window.history.go(-1)")
-                input_bar = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, '//input[@class="form-control ps-3"]')))
-            except:
-                WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, '//img[@title="Opendatabot"]'))).click()
-                input_bar = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, '//input[@class="form-control ps-3"]')))
-
-
-
-        input_bar.send_keys(Keys.CONTROL,'a')
-        input_bar.send_keys(Keys.DELETE)
-        input_bar.send_keys(id) 
-        input_bar.send_keys(Keys.ENTER)
-      
-
-
-
-
+        
 
 
         try:
-            WebDriverWait(driver, 12).until(EC.presence_of_element_located((By.XPATH, '//button[@class="btn btn-lg btn-primary"]')))
+            WebDriverWait(driver, 4).until(EC.presence_of_element_located((By.XPATH, '//p[@class="lead"]')))
+            last_scrape_time = time.time()
+            is_scrapping_in_progress=False
+            return jsonify({'Error': 'Id was not found'}), 404
+        
         except:
             try:
-                WebDriverWait(driver, 0.5).until(EC.presence_of_element_located((By.XPATH, '//p[@class="lead"]')))
-                last_scrape_time = time.time()
-                is_scrapping_in_progress=False
-                return jsonify({'Error': 'Id was not found'}), 404
-                
+                WebDriverWait(driver, 6).until(EC.presence_of_element_located((By.XPATH, '//button[@class="btn btn-lg btn-primary"]')))
             except:
                 last_scrape_time = time.time()
                 is_scrapping_in_progress=False
                 return jsonify({'Error': 'Opendatabot is not avalible'}), 504 
+
+
+
+
+        # try:
+        #     WebDriverWait(driver, 12).until(EC.presence_of_element_located((By.XPATH, '//button[@class="btn btn-lg btn-primary"]')))
+        # except:
+        #     try:
+        #         WebDriverWait(driver, 0.5).until(EC.presence_of_element_located((By.XPATH, '//p[@class="lead"]')))
+        #         last_scrape_time = time.time()
+        #         is_scrapping_in_progress=False
+        #         return jsonify({'Error': 'Id was not found'}), 404
+                
+        #     except:
+        #         last_scrape_time = time.time()
+        #         is_scrapping_in_progress=False
+        #         return jsonify({'Error': 'Opendatabot is not avalible'}), 504 
 
         
 
@@ -240,17 +240,12 @@ def scrape_data():
 
 
 
+        
         try:
-            try:
-                name = soup.find(text='ПІБ').find_next('p').text
-            except:
-                name = soup.find(text='ПІБ').find_next('div').text
+            name = soup.find(text='ПІБ').find_next('p').text
         except:
-            try:
-                name = soup.find(text='Повна назва').find_next('p').text
-            except:
-                name = soup.find(text='Повна назва').find_next('div').text
-
+            name = soup.find(text='ПІБ').find_next('div').text
+        
 
         try:
             vat = soup.find(text='Статус єдиного податку').find_next('p').text
@@ -276,21 +271,15 @@ def scrape_data():
             address = soup.find(text='Адреса').find_next('div').text
         
 
-        #x = address.split(", ") 
+       
         try:
-            try:
-                status = soup.find(text='Статус').find_next('div').text
-                if 'вид' in status:
-                    status = soup.find(text='Статус').find_next('p').text
-            except:
+            status = soup.find(text='Статус').find_next('div').text
+            if 'вид' in status:
                 status = soup.find(text='Статус').find_next('p').text
         except:
-            try:
-                status = soup.find(text='Стан').find_next('div').text
-                if 'Код' in status:
-                    status = soup.find(text='Стан').find_next('p').text
-            except:
-                status = soup.find(text='Стан').find_next('p').text
+            status = soup.find(text='Статус').find_next('p').text
+       
+           
 
         
         data={'id':id, 

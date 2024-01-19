@@ -97,7 +97,7 @@ def keep_browser_session_alive():
     global driver,is_scrapping_in_progress
     while True:
 
-        time.sleep(900)  
+        time.sleep(1800)  
         is_scrapping_in_progress=True  
         driver.close()
         start_browser()
@@ -130,7 +130,7 @@ def scrape_data():
             time.sleep(4 - time_since_last_scrape)
 
 
-    url = f'https://opendatabot.ua/c/{id}'  # Fill the URL of the Google Reviews
+    url = f'https://opendatabot.ua/c/{id}'  
     
     driver.get(url)
     
