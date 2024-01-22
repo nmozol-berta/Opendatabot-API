@@ -35,6 +35,7 @@ WORKDIR /app
 RUN mkdir static templates
 COPY ./templates/index.html ./templates/index.html
 COPY ./requirements.txt /app/
+RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt 
 
 COPY ./app_fop.py /app/
