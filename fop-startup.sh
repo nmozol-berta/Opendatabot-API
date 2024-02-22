@@ -9,9 +9,9 @@ for f in ./ovpn_udp/*; do
     echo 'route 10.0.100.0 255.255.255.0 net_gateway' >> $f
 #    echo 'route 172.22.0.0 255.255.255.0 net_gateway' >> $f
 done
-#openvpn --config ovpn_udp/ua${VPN_CODE}.nordvpn.com.udp.ovpn --auth-user-pass temp_cred.txt &
+openvpn --config ovpn_udp/ua${VPN_CODE}.nordvpn.com.udp.ovpn --auth-user-pass temp_cred.txt &
 sleep 5
-#echo 'nameserver 8.8.8.8' > /etc/resolv.conf
+echo 'nameserver 8.8.8.8' > /etc/resolv.conf
 
 if ! ping -c 4 google.com &> /dev/null; then
  echo "ERROR: No internet connection. Shutting down container." >&2

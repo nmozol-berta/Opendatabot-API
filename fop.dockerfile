@@ -55,13 +55,12 @@ RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt 
 COPY temp_cred.txt /app
 RUN chmod 777 /app/temp_cred.txt
-COPY ./fop-startup.sh /app/
+COPY fop-startup.sh /app/
 RUN chmod 777 /app/fop-startup.sh
-
 
 
 COPY ./app_fop.py /app/
 
 #CMD ["/bin/sh", "-c", "python ./app_fop.py"]
-CMD ["/bin/sh", "-c", "sleep infinity"]
-#CMD ["/bin/sh", "-c", "./fop-startup.sh"]
+#CMD ["/bin/sh", "-c", "sleep infinity"]
+CMD ["/bin/sh", "-c", "/app/fop-startup.sh"]

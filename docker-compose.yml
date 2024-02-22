@@ -1,45 +1,45 @@
 version: "3.7"
 
 services:
-  # opendatabot-api-fop-1:
-  #   restart: "no"
-  #   container_name: opendatabot-api-fop-1
-  #   build:
-  #     context: ./
-  #     dockerfile: ./fop.dockerfile
-  #   environment:
-  #     - PORT=${port_fop_1}
-  #     - LOGIN=${login_1}
-  #     - PASSWORD=${password_1}
-  #     - VPN_CODE=${vpn_code_1}
-  #   expose:
-  #     - ${port_fop_1}
-  #   volumes:
-  #       - ./profile_dir_1:/app/profile_dir
-  #       - /dev/net/tun:/dev/net/tun
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.fop-1.rule=(Host(`${IP}`) && PathPrefix(`/fop-1/`))"
-  #     - "traefik.http.routers.fop-1.entrypoints=web"
-  #     - "traefik.http.routers.fop-1.middlewares=fop-1-middleware"
-  #     - "traefik.http.middlewares.fop-1-middleware.stripprefix.prefixes=/fop-1"
-  #     - "traefik.http.middlewares.fop-1-middleware.stripprefix.forceslash=false"
-  #     - "traefik.http.services.uptime.loadbalancer.server.port=${port_fop_1}"
-  #   cap_add:
-  #     - NET_ADMIN
-  #   ports:
-  #     - 8890:8888/tcp # HTTP proxy
-  #     - 8390:8388/tcp # Shadowsocks
-  #     - 8390:8388/udp # Shadowsocks
-  #     - 82:80/udp
-  #     - 82:80/tcp
-  #   sysctls:
-  #     - net.ipv6.conf.all.disable_ipv6=1
-  #     - net.ipv6.conf.default.disable_ipv6=1
-  #     - net.ipv6.conf.lo.disable_ipv6=1
-  #     - net.ipv6.conf.eth0.disable_ipv6=1
-  #   networks:
-  #     - webnetwork
+  opendatabot-api-fop-1:
+    restart: "no"
+    container_name: opendatabot-api-fop-1
+    build:
+      context: ./
+      dockerfile: ./fop.dockerfile
+    environment:
+      - PORT=${port_fop_1}
+      - LOGIN=${login_1}
+      - PASSWORD=${password_1}
+      - VPN_CODE=${vpn_code_1}
+    expose:
+      - ${port_fop_1}
+    volumes:
+        - ./profile_dir_1:/app/profile_dir
+        - /dev/net/tun:/dev/net/tun
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.fop-1.rule=(Host(`${IP}`) && PathPrefix(`/fop-1/`))"
+      - "traefik.http.routers.fop-1.entrypoints=web"
+      - "traefik.http.routers.fop-1.middlewares=fop-1-middleware"
+      - "traefik.http.middlewares.fop-1-middleware.stripprefix.prefixes=/fop-1"
+      - "traefik.http.middlewares.fop-1-middleware.stripprefix.forceslash=false"
+      - "traefik.http.services.uptime.loadbalancer.server.port=${port_fop_1}"
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8888/tcp # HTTP proxy
+      - 8388/tcp # Shadowsocks
+      - 8388/udp # Shadowsocks
+      - 80/udp
+      - 80/tcp
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+      - net.ipv6.conf.default.disable_ipv6=1
+      - net.ipv6.conf.lo.disable_ipv6=1
+      - net.ipv6.conf.eth0.disable_ipv6=1
+    networks:
+      - webnetwork
 
 
 
@@ -76,7 +76,6 @@ services:
       - 8388/udp # Shadowsocks
       - 80/udp
       - 80/tcp
-      - "9051:9050"
     sysctls:
       - net.ipv6.conf.all.disable_ipv6=1
       - net.ipv6.conf.default.disable_ipv6=1
@@ -90,173 +89,177 @@ services:
 
 
 
-  # opendatabot-api-fop-berta-1c:
-  #   restart: "no"
-  #   container_name: opendatabot-api-fop-berta-1c
-  #   build:
-  #     context: ./
-  #     dockerfile: ./fop.dockerfile
-  #   environment:
-  #     - PORT=${port_fop_1c_berta}
-  #     - LOGIN=${login_1c_berta}
-  #     - PASSWORD=${password_1c_berta}
-  #     - VPN_CODE=${vpn_code_3}
-  #   expose:
-  #     - ${port_fop_1c_berta}
-  #   volumes:
-  #       - ./profile_dir_3:/app/profile_dir
-  #       - /dev/net/tun:/dev/net/tun
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.fop-berta.rule=(Host(`${IP}`) && PathPrefix(`/fop-berta/`))"
-  #     - "traefik.http.routers.fop-berta.entrypoints=web"
-  #     - "traefik.http.routers.fop-berta.middlewares=fop-berta-middleware"
-  #     - "traefik.http.middlewares.fop-berta-middleware.stripprefix.prefixes=/fop-berta"
-  #     - "traefik.http.middlewares.fop-berta-middleware.stripprefix.forceslash=false"
-  #     - "traefik.http.services.uptime.loadbalancer.server.port=${port_fop_1c_berta}"
-  #   cap_add:
-  #     - NET_ADMIN
-  #   ports:
-  #     - 8888/tcp # HTTP proxy
-  #     - 8388/tcp # Shadowsocks
-  #     - 8388/udp # Shadowsocks
-  #     - 80/udp
-  #     - 80/tcp
-  #   sysctls:
-  #     - net.ipv6.conf.all.disable_ipv6=1
-  #     - net.ipv6.conf.default.disable_ipv6=1
-  #     - net.ipv6.conf.lo.disable_ipv6=1
-  #     - net.ipv6.conf.eth0.disable_ipv6=1
+  opendatabot-api-fop-berta-1c:
+    restart: "no"
+    container_name: opendatabot-api-fop-berta-1c
+    build:
+      context: ./
+      dockerfile: ./fop.dockerfile
+    environment:
+      - PORT=${port_fop_1c_berta}
+      - LOGIN=${login_1c_berta}
+      - PASSWORD=${password_1c_berta}
+      - VPN_CODE=${vpn_code_3}
+    expose:
+      - ${port_fop_1c_berta}
+    volumes:
+        - ./profile_dir_3:/app/profile_dir
+        - /dev/net/tun:/dev/net/tun
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.fop-berta.rule=(Host(`${IP}`) && PathPrefix(`/fop-berta/`))"
+      - "traefik.http.routers.fop-berta.entrypoints=web"
+      - "traefik.http.routers.fop-berta.middlewares=fop-berta-middleware"
+      - "traefik.http.middlewares.fop-berta-middleware.stripprefix.prefixes=/fop-berta"
+      - "traefik.http.middlewares.fop-berta-middleware.stripprefix.forceslash=false"
+      - "traefik.http.services.uptime.loadbalancer.server.port=${port_fop_1c_berta}"
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8888/tcp # HTTP proxy
+      - 8388/tcp # Shadowsocks
+      - 8388/udp # Shadowsocks
+      - 80/udp
+      - 80/tcp
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+      - net.ipv6.conf.default.disable_ipv6=1
+      - net.ipv6.conf.lo.disable_ipv6=1
+      - net.ipv6.conf.eth0.disable_ipv6=1
+    networks:
+      - webnetwork
 
 
 
-
-  # opendatabot-api-fop-tema-1c:
-  #   restart: "no"
-  #   container_name: opendatabot-api-fop-tema-1c
-  #   build:
-  #     context: ./
-  #     dockerfile: ./fop.dockerfile
-  #   environment:
-  #     - PORT=${port_fop_1c_tema}
-  #     - LOGIN=${login_1c_tema}
-  #     - PASSWORD=${password_1c_tema}
-  #     - VPN_CODE=${vpn_code_4}
-  #   expose:
-  #     - ${port_fop_1c_tema}
-  #   volumes:
-  #       - ./profile_dir_4:/app/profile_dir
-  #       - /dev/net/tun:/dev/net/tun
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.fop-tema.rule=(Host(`${IP}`) && PathPrefix(`/fop-tema/`))"
-  #     - "traefik.http.routers.fop-tema.entrypoints=web"
-  #     - "traefik.http.routers.fop-tema.middlewares=fop-tema-middleware"
-  #     - "traefik.http.middlewares.fop-tema-middleware.stripprefix.prefixes=/fop-tema"
-  #     - "traefik.http.middlewares.fop-tema-middleware.stripprefix.forceslash=false"
-  #     - "traefik.http.services.uptime.loadbalancer.server.port=${port_fop_1c_tema}"
-  #   cap_add:
-  #     - NET_ADMIN
-  #   ports:
-  #     - 8888/tcp # HTTP proxy
-  #     - 8388/tcp # Shadowsocks
-  #     - 8388/udp # Shadowsocks
-  #     - 80/udp
-  #     - 80/tcp
-  #   sysctls:
-  #     - net.ipv6.conf.all.disable_ipv6=1
-  #     - net.ipv6.conf.default.disable_ipv6=1
-  #     - net.ipv6.conf.lo.disable_ipv6=1
-  #     - net.ipv6.conf.eth0.disable_ipv6=1
-
-
-
-
-
-
-
-
-  # opendatabot-api-fop-berta-1c-bot:
-  #   restart: "no"
-  #   container_name: opendatabot-api-fop-berta-1c-bot
-  #   build:
-  #     context: ./
-  #     dockerfile: ./fop.dockerfile
-  #   environment:
-  #     - PORT=${port_fop_1c_berta_bot}
-  #     - LOGIN=${login_1c_berta_bot}
-  #     - PASSWORD=${password_1c_berta_bot}
-  #     - VPN_CODE=${vpn_code_5}
-  #   expose:
-  #     - ${port_fop_1c_berta_bot}
-  #   volumes:
-  #       - ./profile_dir_5:/app/profile_dir
-  #       - /dev/net/tun:/dev/net/tun
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.fop-berta-bot.rule=(Host(`${IP}`) && PathPrefix(`/fop-berta-bot/`))"
-  #     - "traefik.http.routers.fop-berta-bot.entrypoints=web"
-  #     - "traefik.http.routers.fop-berta-bot.middlewares=fop-berta-bot-middleware"
-  #     - "traefik.http.middlewares.fop-berta-bot-middleware.stripprefix.prefixes=/fop-berta-bot"
-  #     - "traefik.http.middlewares.fop-berta-bot-middleware.stripprefix.forceslash=false"
-  #     - "traefik.http.services.uptime.loadbalancer.server.port=${port_fop_1c_berta_bot}"
-  #   cap_add:
-  #     - NET_ADMIN
-  #   ports:
-  #     - 8888/tcp # HTTP proxy
-  #     - 8388/tcp # Shadowsocks
-  #     - 8388/udp # Shadowsocks
-  #     - 80/udp
-  #     - 80/tcp
-  #   sysctls:
-  #     - net.ipv6.conf.all.disable_ipv6=1
-  #     - net.ipv6.conf.default.disable_ipv6=1
-  #     - net.ipv6.conf.lo.disable_ipv6=1
-  #     - net.ipv6.conf.eth0.disable_ipv6=1
+  opendatabot-api-fop-tema-1c:
+    restart: "no"
+    container_name: opendatabot-api-fop-tema-1c
+    build:
+      context: ./
+      dockerfile: ./fop.dockerfile
+    environment:
+      - PORT=${port_fop_1c_tema}
+      - LOGIN=${login_1c_tema}
+      - PASSWORD=${password_1c_tema}
+      - VPN_CODE=${vpn_code_4}
+    expose:
+      - ${port_fop_1c_tema}
+    volumes:
+        - ./profile_dir_4:/app/profile_dir
+        - /dev/net/tun:/dev/net/tun
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.fop-tema.rule=(Host(`${IP}`) && PathPrefix(`/fop-tema/`))"
+      - "traefik.http.routers.fop-tema.entrypoints=web"
+      - "traefik.http.routers.fop-tema.middlewares=fop-tema-middleware"
+      - "traefik.http.middlewares.fop-tema-middleware.stripprefix.prefixes=/fop-tema"
+      - "traefik.http.middlewares.fop-tema-middleware.stripprefix.forceslash=false"
+      - "traefik.http.services.uptime.loadbalancer.server.port=${port_fop_1c_tema}"
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8888/tcp # HTTP proxy
+      - 8388/tcp # Shadowsocks
+      - 8388/udp # Shadowsocks
+      - 80/udp
+      - 80/tcp
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+      - net.ipv6.conf.default.disable_ipv6=1
+      - net.ipv6.conf.lo.disable_ipv6=1
+      - net.ipv6.conf.eth0.disable_ipv6=1
+    networks:
+      - webnetwork
 
 
 
 
 
 
-  # opendatabot-api-fop-tema-1c-bot:
-  #   restart: "no"
-  #   container_name: opendatabot-api-fop-tema-1c-bot
-  #   build:
-  #     context: ./
-  #     dockerfile: ./fop.dockerfile
-  #   environment:
-  #     - PORT=${port_fop_1c_tema_bot}
-  #     - LOGIN=${login_1c_tema_bot}
-  #     - PASSWORD=${password_1c_tema_bot}
-  #     - VPN_CODE=${vpn_code_6}
-  #   expose:
-  #     - ${port_fop_1c_tema_bot}
-  #   volumes:
-  #       - ./profile_dir_6:/app/profile_dir
-  #       - /dev/net/tun:/dev/net/tun
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.fop-tema-bot.rule=(Host(`${IP}`) && PathPrefix(`/fop-tema-bot/`))"
-  #     - "traefik.http.routers.fop-tema-bot.entrypoints=web"
-  #     - "traefik.http.routers.fop-tema-bot.middlewares=fop-tema-bot-middleware"
-  #     - "traefik.http.middlewares.fop-tema-bot-middleware.stripprefix.prefixes=/fop-tema-bot"
-  #     - "traefik.http.middlewares.fop-tema-bot-middleware.stripprefix.forceslash=false"
-  #     - "traefik.http.services.uptime.loadbalancer.server.port=${port_fop_1c_tema_bot}"
-  #   cap_add:
-  #     - NET_ADMIN
-  #   ports:
-  #     - 8888/tcp # HTTP proxy
-  #     - 8388/tcp # Shadowsocks
-  #     - 8388/udp # Shadowsocks
-  #     - 80/udp
-  #     - 80/tcp
-  #   sysctls:
-  #     - net.ipv6.conf.all.disable_ipv6=1
-  #     - net.ipv6.conf.default.disable_ipv6=1
-  #     - net.ipv6.conf.lo.disable_ipv6=1
-  #     - net.ipv6.conf.eth0.disable_ipv6=1
-   
+
+  opendatabot-api-fop-berta-1c-bot:
+    restart: "no"
+    container_name: opendatabot-api-fop-berta-1c-bot
+    build:
+      context: ./
+      dockerfile: ./fop.dockerfile
+    environment:
+      - PORT=${port_fop_1c_berta_bot}
+      - LOGIN=${login_1c_berta_bot}
+      - PASSWORD=${password_1c_berta_bot}
+      - VPN_CODE=${vpn_code_5}
+    expose:
+      - ${port_fop_1c_berta_bot}
+    volumes:
+        - ./profile_dir_5:/app/profile_dir
+        - /dev/net/tun:/dev/net/tun
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.fop-berta-bot.rule=(Host(`${IP}`) && PathPrefix(`/fop-berta-bot/`))"
+      - "traefik.http.routers.fop-berta-bot.entrypoints=web"
+      - "traefik.http.routers.fop-berta-bot.middlewares=fop-berta-bot-middleware"
+      - "traefik.http.middlewares.fop-berta-bot-middleware.stripprefix.prefixes=/fop-berta-bot"
+      - "traefik.http.middlewares.fop-berta-bot-middleware.stripprefix.forceslash=false"
+      - "traefik.http.services.uptime.loadbalancer.server.port=${port_fop_1c_berta_bot}"
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8888/tcp # HTTP proxy
+      - 8388/tcp # Shadowsocks
+      - 8388/udp # Shadowsocks
+      - 80/udp
+      - 80/tcp
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+      - net.ipv6.conf.default.disable_ipv6=1
+      - net.ipv6.conf.lo.disable_ipv6=1
+      - net.ipv6.conf.eth0.disable_ipv6=1
+    networks:
+      - webnetwork
+
+
+
+
+
+  opendatabot-api-fop-tema-1c-bot:
+    restart: "no"
+    container_name: opendatabot-api-fop-tema-1c-bot
+    build:
+      context: ./
+      dockerfile: ./fop.dockerfile
+    environment:
+      - PORT=${port_fop_1c_tema_bot}
+      - LOGIN=${login_1c_tema_bot}
+      - PASSWORD=${password_1c_tema_bot}
+      - VPN_CODE=${vpn_code_6}
+    expose:
+      - ${port_fop_1c_tema_bot}
+    volumes:
+        - ./profile_dir_6:/app/profile_dir
+        - /dev/net/tun:/dev/net/tun
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.fop-tema-bot.rule=(Host(`${IP}`) && PathPrefix(`/fop-tema-bot/`))"
+      - "traefik.http.routers.fop-tema-bot.entrypoints=web"
+      - "traefik.http.routers.fop-tema-bot.middlewares=fop-tema-bot-middleware"
+      - "traefik.http.middlewares.fop-tema-bot-middleware.stripprefix.prefixes=/fop-tema-bot"
+      - "traefik.http.middlewares.fop-tema-bot-middleware.stripprefix.forceslash=false"
+      - "traefik.http.services.uptime.loadbalancer.server.port=${port_fop_1c_tema_bot}"
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8888/tcp # HTTP proxy
+      - 8388/tcp # Shadowsocks
+      - 8388/udp # Shadowsocks
+      - 80/udp
+      - 80/tcp
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+      - net.ipv6.conf.default.disable_ipv6=1
+      - net.ipv6.conf.lo.disable_ipv6=1
+      - net.ipv6.conf.eth0.disable_ipv6=1
+    networks:
+      - webnetwork
 
 
 
@@ -288,86 +291,223 @@ services:
 
 
 
-  # opendatabot-api-tzov-1:
-  #   restart: "no"
-  #   container_name: opendatabot-api-tzov-1
-  #   build:
-  #     context: ./
-  #     dockerfile: ./tzov.dockerfile
-  #   environment:
-  #       - PORT=${port_tzov_1}
-  #       - VPN_CODE=${vpn_code_7}
-  #   expose:
-  #     - ${port_tzov_1}
-  #   volumes:
-  #       - ./profile_dir_7:/app/profile_dir
-  #       - /dev/net/tun:/dev/net/tun
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.tzov-1.rule=(Host(`${IP}`) && PathPrefix(`/tzov-1/`))"
-  #     - "traefik.http.routers.tzov-1.entrypoints=web"
-  #     - "traefik.http.routers.tzov-1.middlewares=tzov-1-middleware"
-  #     - "traefik.http.middlewares.tzov-1-middleware.stripprefix.prefixes=/tzov-1"
-  #     - "traefik.http.middlewares.tzov-1-middleware.stripprefix.forceslash=false"
-  #     - "traefik.http.services.uptime.loadbalancer.server.port=${port_tzov_1}"
-  #   cap_add:
-  #     - NET_ADMIN
-  #   ports:
-  #     - 8896:8888/tcp # HTTP proxy
-  #     - 8396:8388/tcp # Shadowsocks
-  #     - 8396:8388/udp # Shadowsocks
-  #     - 88:80/udp
-  #     - 88:80/tcp
-  #   sysctls:
-  #     - net.ipv6.conf.all.disable_ipv6=1
-  #     - net.ipv6.conf.default.disable_ipv6=1
-  #     - net.ipv6.conf.lo.disable_ipv6=1
-  #     - net.ipv6.conf.eth0.disable_ipv6=1
+  opendatabot-api-tzov-1:
+    restart: "no"
+    container_name: opendatabot-api-tzov-1
+    build:
+      context: ./
+      dockerfile: ./tzov.dockerfile
+    environment:
+        - PORT=${port_tzov_1}
+        - VPN_CODE=${vpn_code_7}
+    expose:
+      - ${port_tzov_1}
+    volumes:
+        - ./profile_dir_7:/app/profile_dir
+        - /dev/net/tun:/dev/net/tun
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tzov-1.rule=(Host(`${IP}`) && PathPrefix(`/tzov-1/`))"
+      - "traefik.http.routers.tzov-1.entrypoints=web"
+      - "traefik.http.routers.tzov-1.middlewares=tzov-1-middleware"
+      - "traefik.http.middlewares.tzov-1-middleware.stripprefix.prefixes=/tzov-1"
+      - "traefik.http.middlewares.tzov-1-middleware.stripprefix.forceslash=false"
+      - "traefik.http.services.uptime.loadbalancer.server.port=${port_tzov_1}"
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8888/tcp # HTTP proxy
+      - 8388/tcp # Shadowsocks
+      - 8388/udp # Shadowsocks
+      - 80/udp
+      - 80/tcp
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+      - net.ipv6.conf.default.disable_ipv6=1
+      - net.ipv6.conf.lo.disable_ipv6=1
+      - net.ipv6.conf.eth0.disable_ipv6=1
+    networks:
+      - webnetwork
+
+  
+
+
+
+
+
+
+  opendatabot-api-tzov-2:
+    restart: "no"
+    container_name: opendatabot-api-tzov-2
+    build:
+      context: ./
+      dockerfile: ./tzov.dockerfile
+    environment:
+        - PORT=${port_tzov_2}
+        - VPN_CODE=${vpn_code_8}
+    expose:
+      - ${port_tzov_2}
+    volumes:
+        - ./profile_dir_8:/app/profile_dir
+        - /dev/net/tun:/dev/net/tun
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tzov-2.rule=(Host(`${IP}`) && PathPrefix(`/tzov-2/`))"
+      - "traefik.http.routers.tzov-2.entrypoints=web"
+      - "traefik.http.routers.tzov-2.middlewares=tzov-2-middleware"
+      - "traefik.http.middlewares.tzov-2-middleware.stripprefix.prefixes=/tzov-2"
+      - "traefik.http.middlewares.tzov-2-middleware.stripprefix.forceslash=false"
+      - "traefik.http.services.uptime.loadbalancer.server.port=${port_tzov_2}"
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8888/tcp # HTTP proxy
+      - 8388/tcp # Shadowsocks
+      - 8388/udp # Shadowsocks
+      - 80/udp
+      - 80/tcp
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+      - net.ipv6.conf.default.disable_ipv6=1
+      - net.ipv6.conf.lo.disable_ipv6=1
+      - net.ipv6.conf.eth0.disable_ipv6=1
+    networks:
+      - webnetwork
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  opendatabot-api-tzov-1c-berta:
+    restart: "no"
+    container_name: opendatabot-api-tzov-1c-berta
+    build:
+      context: ./
+      dockerfile: ./tzov.dockerfile
+    environment:
+        - PORT=${port_tzov_1c_berta}
+        - VPN_CODE=${vpn_code_9}
+    expose:
+      - ${port_tzov_1c_berta}
+    volumes:
+        - ./profile_dir_9:/app/profile_dir
+        - /dev/net/tun:/dev/net/tun
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tzov-berta.rule=(Host(`${IP}`) && PathPrefix(`/tzov-berta/`))"
+      - "traefik.http.routers.tzov-berta.entrypoints=web"
+      - "traefik.http.routers.tzov-berta.middlewares=tzov-berta-middleware"
+      - "traefik.http.middlewares.tzov-berta-middleware.stripprefix.prefixes=/tzov-berta"
+      - "traefik.http.middlewares.tzov-berta-middleware.stripprefix.forceslash=false"
+      - "traefik.http.services.uptime.loadbalancer.server.port=${port_tzov_1c_berta}"
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8888/tcp # HTTP proxy
+      - 8388/tcp # Shadowsocks
+      - 8388/udp # Shadowsocks
+      - 80/udp
+      - 80/tcp
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+      - net.ipv6.conf.default.disable_ipv6=1
+      - net.ipv6.conf.lo.disable_ipv6=1
+      - net.ipv6.conf.eth0.disable_ipv6=1
+    networks:
+      - webnetwork
+
    
 
 
 
 
+  opendatabot-api-tzov-1c-tema:
+    restart: "no"
+    container_name: opendatabot-api-tzov-1c-tema
+    build:
+      context: ./
+      dockerfile: ./tzov.dockerfile
+    environment:
+        - PORT=${port_tzov_1c_tema}
+        - VPN_CODE=${vpn_code_10}
+    expose:
+      - ${port_tzov_1c_tema}
+    volumes:
+        - ./profile_dir_10:/app/profile_dir
+        - /dev/net/tun:/dev/net/tun
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tzov-tema.rule=(Host(`${IP}`) && PathPrefix(`/tzov-tema/`))"
+      - "traefik.http.routers.tzov-tema.entrypoints=web"
+      - "traefik.http.routers.tzov-tema.middlewares=tzov-tema-middleware"
+      - "traefik.http.middlewares.tzov-tema-middleware.stripprefix.prefixes=/tzov-tema"
+      - "traefik.http.middlewares.tzov-tema-middleware.stripprefix.forceslash=false"
+      - "traefik.http.services.uptime.loadbalancer.server.port=${port_tzov_1c_tema}"
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8888/tcp # HTTP proxy
+      - 8388/tcp # Shadowsocks
+      - 8388/udp # Shadowsocks
+      - 80/udp
+      - 80/tcp
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+      - net.ipv6.conf.default.disable_ipv6=1
+      - net.ipv6.conf.lo.disable_ipv6=1
+      - net.ipv6.conf.eth0.disable_ipv6=1
+    networks:
+      - webnetwork
 
-
-  # opendatabot-api-tzov-2:
-  #   restart: "no"
-  #   container_name: opendatabot-api-tzov-2
-  #   build:
-  #     context: ./
-  #     dockerfile: ./tzov.dockerfile
-  #   environment:
-  #       - PORT=${port_tzov_2}
-  #       - VPN_CODE=${vpn_code_8}
-  #   expose:
-  #     - ${port_tzov_2}
-  #   volumes:
-  #       - ./profile_dir_8:/app/profile_dir
-  #       - /dev/net/tun:/dev/net/tun
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.tzov-2.rule=(Host(`${IP}`) && PathPrefix(`/tzov-2/`))"
-  #     - "traefik.http.routers.tzov-2.entrypoints=web"
-  #     - "traefik.http.routers.tzov-2.middlewares=tzov-2-middleware"
-  #     - "traefik.http.middlewares.tzov-2-middleware.stripprefix.prefixes=/tzov-2"
-  #     - "traefik.http.middlewares.tzov-2-middleware.stripprefix.forceslash=false"
-  #     - "traefik.http.services.uptime.loadbalancer.server.port=${port_tzov_2}"
-  #   cap_add:
-  #     - NET_ADMIN
-  #   ports:
-  #     - 8897:8888/tcp # HTTP proxy
-  #     - 8397:8388/tcp # Shadowsocks
-  #     - 8397:8388/udp # Shadowsocks
-  #     - 89:80/udp
-  #     - 89:80/tcp
-  #   sysctls:
-  #     - net.ipv6.conf.all.disable_ipv6=1
-  #     - net.ipv6.conf.default.disable_ipv6=1
-  #     - net.ipv6.conf.lo.disable_ipv6=1
-  #     - net.ipv6.conf.eth0.disable_ipv6=1
    
 
 
+  opendatabot-api-tzov-1c-berta-bot:
+    restart: "no"
+    container_name: opendatabot-api-tzov-1c-berta-bot
+    build:
+      context: ./
+      dockerfile: ./tzov.dockerfile
+    environment:
+        - PORT=${port_tzov_1c_berta_bot}
+        - VPN_CODE=${vpn_code_11}
+    expose:
+      - ${port_tzov_1c_berta_bot}
+    volumes:
+        - ./profile_dir_11:/app/profile_dir
+        - /dev/net/tun:/dev/net/tun
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tzov-berta-bot.rule=(Host(`${IP}`) && PathPrefix(`/tzov-berta-bot/`))"
+      - "traefik.http.routers.tzov-berta-bot.entrypoints=web"
+      - "traefik.http.routers.tzov-berta-bot.middlewares=tzov-berta-bot-middleware"
+      - "traefik.http.middlewares.tzov-berta-bot-middleware.stripprefix.prefixes=/tzov-berta-bot"
+      - "traefik.http.middlewares.tzov-berta-bot-middleware.stripprefix.forceslash=false"
+      - "traefik.http.services.uptime.loadbalancer.server.port=${port_tzov_1c_berta_bot}"
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8888/tcp # HTTP proxy
+      - 8388/tcp # Shadowsocks
+      - 8388/udp # Shadowsocks
+      - 80/udp
+      - 80/tcp
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+      - net.ipv6.conf.default.disable_ipv6=1
+      - net.ipv6.conf.lo.disable_ipv6=1
+      - net.ipv6.conf.eth0.disable_ipv6=1
+    networks:
+      - webnetwork
 
 
 
@@ -375,163 +515,43 @@ services:
 
 
 
-
-
-
-  # opendatabot-api-tzov-1c-berta:
-  #   restart: "no"
-  #   container_name: opendatabot-api-tzov-1c-berta
-  #   build:
-  #     context: ./
-  #     dockerfile: ./tzov.dockerfile
-  #   environment:
-  #       - PORT=${port_tzov_1c_berta}
-  #       - VPN_CODE=${vpn_code_9}
-  #   expose:
-  #     - ${port_tzov_1c_berta}
-  #   volumes:
-  #       - ./profile_dir_9:/app/profile_dir
-  #       - /dev/net/tun:/dev/net/tun
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.tzov-berta.rule=(Host(`${IP}`) && PathPrefix(`/tzov-berta/`))"
-  #     - "traefik.http.routers.tzov-berta.entrypoints=web"
-  #     - "traefik.http.routers.tzov-berta.middlewares=tzov-berta-middleware"
-  #     - "traefik.http.middlewares.tzov-berta-middleware.stripprefix.prefixes=/tzov-berta"
-  #     - "traefik.http.middlewares.tzov-berta-middleware.stripprefix.forceslash=false"
-  #     - "traefik.http.services.uptime.loadbalancer.server.port=${port_tzov_1c_berta}"
-  #   cap_add:
-  #     - NET_ADMIN
-  #   ports:
-  #     - 8898:8888/tcp # HTTP proxy
-  #     - 8398:8388/tcp # Shadowsocks
-  #     - 8398:8388/udp # Shadowsocks
-  #     - 90:80/udp
-  #     - 90:80/tcp
-  #   sysctls:
-  #     - net.ipv6.conf.all.disable_ipv6=1
-  #     - net.ipv6.conf.default.disable_ipv6=1
-  #     - net.ipv6.conf.lo.disable_ipv6=1
-  #     - net.ipv6.conf.eth0.disable_ipv6=1
-   
-
-
-
-
-  # opendatabot-api-tzov-1c-tema:
-  #   restart: "no"
-  #   container_name: opendatabot-api-tzov-1c-tema
-  #   build:
-  #     context: ./
-  #     dockerfile: ./tzov.dockerfile
-  #   environment:
-  #       - PORT=${port_tzov_1c_tema}
-  #       - VPN_CODE=${vpn_code_10}
-  #   expose:
-  #     - ${port_tzov_1c_tema}
-  #   volumes:
-  #       - ./profile_dir_10:/app/profile_dir
-  #       - /dev/net/tun:/dev/net/tun
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.tzov-tema.rule=(Host(`${IP}`) && PathPrefix(`/tzov-tema/`))"
-  #     - "traefik.http.routers.tzov-tema.entrypoints=web"
-  #     - "traefik.http.routers.tzov-tema.middlewares=tzov-tema-middleware"
-  #     - "traefik.http.middlewares.tzov-tema-middleware.stripprefix.prefixes=/tzov-tema"
-  #     - "traefik.http.middlewares.tzov-tema-middleware.stripprefix.forceslash=false"
-  #     - "traefik.http.services.uptime.loadbalancer.server.port=${port_tzov_1c_tema}"
-  #   cap_add:
-  #     - NET_ADMIN
-  #   ports:
-  #     - 8899:8888/tcp # HTTP proxy
-  #     - 8399:8388/tcp # Shadowsocks
-  #     - 8399:8388/udp # Shadowsocks
-  #     - 91:80/udp
-  #     - 91:80/tcp
-  #   sysctls:
-  #     - net.ipv6.conf.all.disable_ipv6=1
-  #     - net.ipv6.conf.default.disable_ipv6=1
-  #     - net.ipv6.conf.lo.disable_ipv6=1
-  #     - net.ipv6.conf.eth0.disable_ipv6=1
-   
-
-
-  # opendatabot-api-tzov-1c-berta-bot:
-  #   restart: "no"
-  #   container_name: opendatabot-api-tzov-1c-berta-bot
-  #   build:
-  #     context: ./
-  #     dockerfile: ./tzov.dockerfile
-  #   environment:
-  #       - PORT=${port_tzov_1c_berta_bot}
-  #       - VPN_CODE=${vpn_code_11}
-  #   expose:
-  #     - ${port_tzov_1c_berta_bot}
-  #   volumes:
-  #       - ./profile_dir_11:/app/profile_dir
-  #       - /dev/net/tun:/dev/net/tun
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.tzov-berta-bot.rule=(Host(`${IP}`) && PathPrefix(`/tzov-berta-bot/`))"
-  #     - "traefik.http.routers.tzov-berta-bot.entrypoints=web"
-  #     - "traefik.http.routers.tzov-berta-bot.middlewares=tzov-berta-bot-middleware"
-  #     - "traefik.http.middlewares.tzov-berta-bot-middleware.stripprefix.prefixes=/tzov-berta-bot"
-  #     - "traefik.http.middlewares.tzov-berta-bot-middleware.stripprefix.forceslash=false"
-  #     - "traefik.http.services.uptime.loadbalancer.server.port=${port_tzov_1c_berta_bot}"
-  #   cap_add:
-  #     - NET_ADMIN
-  #   ports:
-  #     - 8400:8888/tcp # HTTP proxy
-  #     - 8400:8388/tcp # Shadowsocks
-  #     - 8400:8388/udp # Shadowsocks
-  #     - 92:80/udp
-  #     - 92:80/tcp
-  #   sysctls:
-  #     - net.ipv6.conf.all.disable_ipv6=1
-  #     - net.ipv6.conf.default.disable_ipv6=1
-  #     - net.ipv6.conf.lo.disable_ipv6=1
-  #     - net.ipv6.conf.eth0.disable_ipv6=1
-
-
-
-
-
-
-  # opendatabot-api-tzov-1c-tema-bot:
-  #   restart: "no"
-  #   container_name: opendatabot-api-tzov-1c-tema-bot
-  #   build:
-  #     context: ./
-  #     dockerfile: ./tzov.dockerfile
-  #   environment:
-  #       - PORT=${port_tzov_1c_tema_bot}
-  #       - VPN_CODE=${vpn_code_12}
-  #   expose:
-  #     - ${port_tzov_1c_tema_bot}
-  #   volumes:
-  #       - ./profile_dir_12:/app/profile_dir
-  #       - /dev/net/tun:/dev/net/tun
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.tzov-tema-bot.rule=(Host(`${IP}`) && PathPrefix(`/tzov-tema-bot/`))"
-  #     - "traefik.http.routers.tzov-tema-bot.entrypoints=web"
-  #     - "traefik.http.routers.tzov-tema-bot.middlewares=tzov-tema-bot-middleware"
-  #     - "traefik.http.middlewares.tzov-tema-bot-middleware.stripprefix.prefixes=/tzov-tema-bot"
-  #     - "traefik.http.middlewares.tzov-tema-bot-middleware.stripprefix.forceslash=false"
-  #     - "traefik.http.services.uptime.loadbalancer.server.port=${port_tzov_1c_tema_bot}"
-  #   cap_add:
-  #     - NET_ADMIN
-  #   ports:
-  #     - 8402:8888/tcp # HTTP proxy
-  #     - 8402:8388/tcp # Shadowsocks
-  #     - 8402:8388/udp # Shadowsocks
-  #     - 93:80/udp
-  #     - 93:80/tcp
-  #   sysctls:
-  #     - net.ipv6.conf.all.disable_ipv6=1
-  #     - net.ipv6.conf.default.disable_ipv6=1
-  #     - net.ipv6.conf.lo.disable_ipv6=1
-  #     - net.ipv6.conf.eth0.disable_ipv6=1
+  opendatabot-api-tzov-1c-tema-bot:
+    restart: "no"
+    container_name: opendatabot-api-tzov-1c-tema-bot
+    build:
+      context: ./
+      dockerfile: ./tzov.dockerfile
+    environment:
+        - PORT=${port_tzov_1c_tema_bot}
+        - VPN_CODE=${vpn_code_12}
+    expose:
+      - ${port_tzov_1c_tema_bot}
+    volumes:
+        - ./profile_dir_12:/app/profile_dir
+        - /dev/net/tun:/dev/net/tun
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tzov-tema-bot.rule=(Host(`${IP}`) && PathPrefix(`/tzov-tema-bot/`))"
+      - "traefik.http.routers.tzov-tema-bot.entrypoints=web"
+      - "traefik.http.routers.tzov-tema-bot.middlewares=tzov-tema-bot-middleware"
+      - "traefik.http.middlewares.tzov-tema-bot-middleware.stripprefix.prefixes=/tzov-tema-bot"
+      - "traefik.http.middlewares.tzov-tema-bot-middleware.stripprefix.forceslash=false"
+      - "traefik.http.services.uptime.loadbalancer.server.port=${port_tzov_1c_tema_bot}"
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8888/tcp # HTTP proxy
+      - 8388/tcp # Shadowsocks
+      - 8388/udp # Shadowsocks
+      - 80/udp
+      - 80/tcp
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+      - net.ipv6.conf.default.disable_ipv6=1
+      - net.ipv6.conf.lo.disable_ipv6=1
+      - net.ipv6.conf.eth0.disable_ipv6=1
+    networks:
+      - webnetwork
 
 
 
@@ -567,41 +587,48 @@ services:
 
 
 
-  # opendatabot-api-tzov-adm-tools-1:
-  #   restart: "no"
-  #   container_name: opendatabot-api-tzov-adm-tools-1
-  #   build:
-  #     context: ./
-  #     dockerfile: ./tzov-adm-tools.dockerfile
-  #   environment:
-  #       - PORT=${port_tzov_adm_tools_1}
-  #   expose:
-  #     - ${port_tzov_adm_tools_1}
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.tzov-adm-tools-1.rule=(Host(`${IP}`) && PathPrefix(`/tzov-adm-tools-1/`))"
-  #     - "traefik.http.routers.tzov-adm-tools-1.entrypoints=web"
-  #     - "traefik.http.routers.tzov-adm-tools-1.middlewares=tzov-adm-tools-1-middleware"
-  #     - "traefik.http.middlewares.tzov-adm-tools-1-middleware.stripprefix.prefixes=/tzov-adm-tools-1"
-  #     - "traefik.http.middlewares.tzov-adm-tools-1-middleware.stripprefix.forceslash=false"
 
-  # opendatabot-api-tzov-adm-tools-2:
-  #   restart: "no"
-  #   container_name: opendatabot-api-tzov-adm-tools-2
-  #   build:
-  #     context: ./
-  #     dockerfile: ./tzov-adm-tools.dockerfile
-  #   environment:
-  #       - PORT=${port_tzov_adm_tools_2}
-  #   expose:
-  #     - ${port_tzov_adm_tools_2}
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.tzov-adm-tools-2.rule=(Host(`${IP}`) && PathPrefix(`/tzov-adm-tools-2/`))"
-  #     - "traefik.http.routers.tzov-adm-tools-2.entrypoints=web"
-  #     - "traefik.http.routers.tzov-adm-tools-2.middlewares=tzov-adm-tools-2-middleware"
-  #     - "traefik.http.middlewares.tzov-adm-tools-2-middleware.stripprefix.prefixes=/tzov-adm-tools-2"
-  #     - "traefik.http.middlewares.tzov-adm-tools-2-middleware.stripprefix.forceslash=false"
+  opendatabot-api-tzov-adm-tools-1:
+    restart: "no"
+    container_name: opendatabot-api-tzov-adm-tools-1
+    build:
+      context: ./
+      dockerfile: ./tzov-adm-tools.dockerfile
+    environment:
+        - PORT=${port_tzov_adm_tools_1}
+    expose:
+      - ${port_tzov_adm_tools_1}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tzov-adm-tools-1.rule=(Host(`${IP}`) && PathPrefix(`/tzov-adm-tools-1/`))"
+      - "traefik.http.routers.tzov-adm-tools-1.entrypoints=web"
+      - "traefik.http.routers.tzov-adm-tools-1.middlewares=tzov-adm-tools-1-middleware"
+      - "traefik.http.middlewares.tzov-adm-tools-1-middleware.stripprefix.prefixes=/tzov-adm-tools-1"
+      - "traefik.http.middlewares.tzov-adm-tools-1-middleware.stripprefix.forceslash=false"
+    networks:
+      - webnetwork
+
+
+  opendatabot-api-tzov-adm-tools-2:
+    restart: "no"
+    container_name: opendatabot-api-tzov-adm-tools-2
+    build:
+      context: ./
+      dockerfile: ./tzov-adm-tools.dockerfile
+    environment:
+        - PORT=${port_tzov_adm_tools_2}
+    expose:
+      - ${port_tzov_adm_tools_2}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tzov-adm-tools-2.rule=(Host(`${IP}`) && PathPrefix(`/tzov-adm-tools-2/`))"
+      - "traefik.http.routers.tzov-adm-tools-2.entrypoints=web"
+      - "traefik.http.routers.tzov-adm-tools-2.middlewares=tzov-adm-tools-2-middleware"
+      - "traefik.http.middlewares.tzov-adm-tools-2-middleware.stripprefix.prefixes=/tzov-adm-tools-2"
+      - "traefik.http.middlewares.tzov-adm-tools-2-middleware.stripprefix.forceslash=false"
+    networks:
+    - webnetwork
+
 
 
 
