@@ -1,6 +1,15 @@
 FROM python:3.11-bullseye
 ENV DEBIAN_FRONTEND noninteractive
 
+
+RUN echo "net.ipv6.conf.all.disable_ipv6=1" >> /etc/sysctl.conf && \
+    echo "net.ipv6.conf.default.disable_ipv6=1" >> /etc/sysctl.conf && \
+    echo "net.ipv6.conf.lo.disable_ipv6=1" >> /etc/sysctl.conf && \
+    echo "net.ipv6.conf.tun0.disable_ipv6=1" >> /etc/sysctl.conf
+
+
+
+
 RUN apt-get update && apt-get install -y \
     fonts-liberation \
     libasound2 \
@@ -22,7 +31,14 @@ RUN apt-get update && apt-get install -y \
     libxrandr2 \
     xdg-utils \
     libu2f-udev \
-    libvulkan1
+    libvulkan1 \
+    iputils-ping \
+    iproute2 \
+    traceroute \
+    nano \
+    openvpn \
+    ca-certificates \
+    net-tools
 
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN apt install ./google-chrome-stable_current_amd64.deb
@@ -37,7 +53,15 @@ COPY ./templates/index.html ./templates/index.html
 COPY ./requirements.txt /app/
 RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt 
+COPY temp_cred.txt /app
+RUN chmod 777 /app/temp_cred.txt
+COPY ./fop-startup.sh /app/
+RUN chmod 777 /app/fop-startup.sh
+
+
 
 COPY ./app_fop.py /app/
-CMD ["/bin/sh", "-c", "python ./app_fop.py"]
 
+#CMD ["/bin/sh", "-c", "python ./app_fop.py"]
+CMD ["/bin/sh", "-c", "sleep infinity"]
+#CMD ["/bin/sh", "-c", "./fop-startup.sh"]

@@ -97,7 +97,7 @@ def keep_browser_session_alive():
     global driver,is_scrapping_in_progress
     while True:
 
-        time.sleep(1800)  
+        time.sleep(3600)  
         is_scrapping_in_progress=True  
         driver.close()
         start_browser()
@@ -113,6 +113,8 @@ def scrape_data():
     is_scrapping_in_progress=True
     # Get parameters from the GET request
     id = str(request.args.get('id'))
+    print(id)
+    print(type(id))
     if len(id)!=8 or has_non_digit(id):
         is_scrapping_in_progress=False
         return jsonify({'Error': 'Invalid length or symbol'}), 400
@@ -212,7 +214,11 @@ def scrape_data():
 
         name=find_by_xpath(soup,'Повна назва')
         address=find_by_xpath(soup,'Адреса')
-        status=find_by_xpath(soup,'Стан')
+        
+        try:
+            status=find_by_xpath(soup,'Стан')
+        except:
+            status='Зареєстровано'
         
         
         try:
@@ -275,6 +281,17 @@ def scrape_data():
         response = make_response(json_str)
         # Set the content-type to 'application/json'
         response.mimetype = 'application/json'
+
+        current_time = time.time()
+        # If last_scrape_time is set, calculate the difference
+        if last_scrape_time is not None:
+            time_since_last_scrape = current_time - last_scrape_time
+
+            # If it's less than 8 seconds since the last scrape, wait the remainder
+            if time_since_last_scrape < 12:
+                time.sleep(12 - time_since_last_scrape)
+
+
         last_scrape_time = time.time()
      
         is_scrapping_in_progress=False

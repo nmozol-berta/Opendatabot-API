@@ -28,6 +28,9 @@ global port,login,password
 login = os.environ["LOGIN"]
 password= os.environ["PASSWORD"]
 port= os.environ["PORT"]
+tor_proxy = "socks5://localhost:9050"
+
+
 
 
 # Global variables
@@ -54,6 +57,7 @@ def start_browser():
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--incognito")
     chrome_options.add_argument("--headless")
+    chrome_options.add_argument(f'--proxy-server={tor_proxy}')
     chrome_options.add_argument("user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36")
 
  
@@ -77,9 +81,11 @@ def start_browser():
 
 
    
-    time.sleep(2.5)
+    time.sleep(6)
+  
     try:
         renew_license = driver.find_element(By.XPATH,"//button[@class='btn flex-grow-1']")
+        print(renew_license)
         renew_license.click()
         time.sleep(1)
         login_placeholder = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//input[@id='email']")))
@@ -107,7 +113,7 @@ def keep_browser_session_alive():
     global driver,is_scrapping_in_progress
     while True:
 
-        time.sleep(1800)
+        time.sleep(3600)
         is_scrapping_in_progress=True  
         driver.close()
         start_browser()
@@ -152,14 +158,27 @@ def scrape_data():
 
         try:
             WebDriverWait(driver, 4).until(EC.presence_of_element_located((By.XPATH, '//p[@class="lead"]')))
+
+            current_time = time.time()
+            # If last_scrape_time is set, calculate the difference
+            if last_scrape_time is not None:
+                time_since_last_scrape = current_time - last_scrape_time
+
+                # If it's less than 8 seconds since the last scrape, wait the remainder
+                if time_since_last_scrape < 20:
+                    time.sleep(20 - time_since_last_scrape)
+
+
             last_scrape_time = time.time()
             is_scrapping_in_progress=False
             return jsonify({'Error': 'Id was not found'}), 404
         
         except:
             try:
-                WebDriverWait(driver, 6).until(EC.presence_of_element_located((By.XPATH, '//button[@class="btn btn-lg btn-primary"]')))
+                WebDriverWait(driver, 6).until(EC.presence_of_element_located((By.XPATH, '//button[@class="purchase-button btn btn-primary btn-lg m-1"]')))
             except:
+                driver.close()
+                start_browser()
                 last_scrape_time = time.time()
                 is_scrapping_in_progress=False
                 return jsonify({'Error': 'Opendatabot is not avalible'}), 504 
@@ -248,17 +267,17 @@ def scrape_data():
         
 
         try:
-            vat = soup.find(text='Статус єдиного податку').find_next('p').text
+            vat = soup.find('span',text=re.compile('Єдиний податок')).text
         except:
-            vat = None
+            try:
+                vat = soup.find('span',text=re.compile('Платник ПДВ')).text
+            except:
+                vat = None
 
         try:
             VAT_certificate = soup.find(text='Анульоване свідоцтво ПДВ').find_next('p').text
         except:
-            try:
-                VAT_certificate = soup.find(text='Платник ПДВ').find_next('p').text
-            except:
-                VAT_certificate = None
+            VAT_certificate=None
 
         try:
             debt = soup.find(text='Податковий борг').find_next('p').text
@@ -298,6 +317,21 @@ def scrape_data():
         response = make_response(json_str)
         # Set the content-type to 'application/json'
         response.mimetype = 'application/json'
+
+
+
+
+        current_time = time.time()
+        # If last_scrape_time is set, calculate the difference
+        if last_scrape_time is not None:
+            time_since_last_scrape = current_time - last_scrape_time
+
+            # If it's less than 8 seconds since the last scrape, wait the remainder
+            if time_since_last_scrape < 20:
+                time.sleep(20 - time_since_last_scrape)
+
+
+
         last_scrape_time = time.time()
         
         is_scrapping_in_progress=False
