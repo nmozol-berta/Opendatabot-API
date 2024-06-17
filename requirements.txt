@@ -26,7 +26,7 @@ sortedcontainers==2.4.0
 soupsieve==2.5
 trio==0.23.1
 trio-websocket==0.11.1
-urllib3==2.1.0
+urllib3==2.2.2
 webdriver-manager==4.0.1
 Werkzeug==3.0.3
 wsproto==1.2.0
